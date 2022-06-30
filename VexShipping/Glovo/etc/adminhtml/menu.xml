@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Blog
+ * 
+ * @author Slava Yurthev
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<update id="Vexsoluciones::glovo"
+			 title="Glovo"
+			 module="Magento_Backend"
+			 sortOrder="22"
+			 resource="Magento_Backend::content" />
+		
+
+		<add id="VexShipping_Glovo::sectionpro"
+			 title="Profesionales"
+			 module="VexShipping_Glovo" 
+			 sortOrder="0"
+			 parent="Vexsoluciones::glovo"
+			 resource="VexShipping_Glovo::sectionpro" />
+
+		<add id="VexShipping_Glovo::listaglovo"
+			 title="List"
+			 module="VexShipping_Glovo" 
+			 sortOrder="0"
+			 parent="VexShipping_Glovo::sectionpro"
+			 action="vexshipping_glovo/glovo"
+			 resource="VexShipping_Glovo::glovo" />
+
+
+	
+
+	</menu>
+</config>

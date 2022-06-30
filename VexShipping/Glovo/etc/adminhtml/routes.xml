@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Blog
+ * 
+ * @author Slava Yurthev
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+	<router id="admin">
+		<route id="vexshipping_glovo" frontName="vexshipping_glovo">
+			<module name="VexShipping_Glovo" />
+		</route>
+	</router>
+</config>

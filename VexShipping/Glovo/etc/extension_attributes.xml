@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Eduardo De León - Remmote.com
+ * @copyright Copyright (c) 2018 Paginas Web Perú (https://paginasweb.pe/)
+ * @package Paginaswebpe_Customaddress
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Quote\Api\Data\AddressInterface">
+        <attribute code="coordenadas" type="string" />
+        <attribute code="tiempo" type="string" />
+    </extension_attributes>
+</config>

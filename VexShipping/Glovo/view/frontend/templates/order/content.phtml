@@ -1,0 +1,13 @@
+<td data-th="<?php echo $this->escapeHtml(__('Comercio Xpress')) ?>" class="col actions">
+    <?php $shipping = $block->getOrder()->getShippingMethod();
+    $order = $block->getOrder();
+
+    if($shipping == "glovo_glovo"){ 
+        if(!empty($order->getIdglovo())){
+        ?>
+        <a href="#" data-id="<?= $order->getId() ?>" data-glovo="<?= $order->getIdglovo() ?>" class="vertrackingglovo"><?= __('Ver Estado del envio') ?></a>
+    <?php }else{
+        echo "";
+    } } ?>
+ 
+</td>

@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="glovo" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Glovo</label>
+
+                <field id="active" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Name</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="titulo" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="tipo_precio" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1"
+                          showInStore="1">
+                   <label>Cost of delivery</label>
+                   <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                    <source_model>VexShipping\Glovo\Model\Config\Source\Lista</source_model>
+                </field>
+
+                <field id="precio" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1"
+                      showInStore="1">
+                   <label>Price</label>
+                   <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="tipo_precio">2</field>
+                    </depends>
+                </field>
+
+                
+                <field id="showmethod" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show shipping method, even if it doesn't apply</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                 
+                <group id="glovo_w5" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Configuración de Estado del Pedido</label>
+                    <comment><![CDATA[Configure when the glovo order should be created in conjunction with your logistics <br> By default Glovo is requested when the order goes to a <b> Completed </b> state. If you want to change the state in which the Glovo will be requested, select the state in the State option to generate Glovo.]]></comment> 
+
+                    <field id="estado_pedido" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1"
+                          showInStore="1">
+                       <label>Status to generate Glovo</label>
+                       <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    </field>
+
+                    <field id="cambiar_estado" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Change Status</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="nuevo_estado_pedido" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1"
+                          showInStore="1">
+                       <label>New state</label>
+                       <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                       <depends>
+                       <field id="glovo_w5/cambiar_estado">1</field>
+                       </depends>
+                    </field>
+
+                </group>
+
+                <group id="glovo_w1" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Trade / Contact and hours</label>
+
+                    
+                    <field id="nombre_contacto" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact name</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                    <field id="nombre_telefono" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact phone</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                    <field id="direccion" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Address</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                    <field id="referencia" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Reference</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                    </field>
+                    
+
+                    <field id="codigo" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>City code</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <comment>
+                            <![CDATA[Access the following Glovo page <a href="https://glovoapp.com/en"> https://glovoapp.com/en </a>. Search and select your city, then write the last letters of the url like this: https://glovoapp.com/en/<b>LIM</b>/]]>
+                        </comment>
+                    </field>
+                    <field id="latitud" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Latitude</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <comment>
+                            <![CDATA[This link can be useful <a target="_blank" href="https://www.latlong.net/"> https://www.latlong.net </a>. Search your location and you will get the latitude and longitude]]>
+                        </comment>
+                    </field>
+                    <field id="longitud" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Longitud</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <comment>
+                            <![CDATA[This link can be useful <a target="_blank" href="https://www.latlong.net/"> https://www.latlong.net </a>. Search your location and you will get the latitude and longitude]]>
+                        </comment>
+                    </field>
+                    
+                    
+
+                    <field id="commands_list" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="8" translate="label comment tooltip" type="text">
+                        <label>Holidays</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        <frontend_model>VexShipping\Glovo\Block\Adminhtml\System\Config\Form\Field\Commands</frontend_model>
+                    </field>
+
+                    <field id="commands_list_work" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="9" translate="label comment tooltip" type="text">
+                        <label>Work days</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        <frontend_model>VexShipping\Glovo\Block\Adminhtml\System\Config\Form\FieldWork\Commands</frontend_model>
+                    </field>
+                </group>
+
+                <!--<group id="glovo_w2" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Comercio / Contacto y horarios</label>
+                </group>-->
+
+                <group id="glovo_w3" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Settings Google Maps</label>
+                    <field id="google_key" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Google key</label>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <comment>
+                            <![CDATA[Google API credentials. It is necessary for coordinates and obtaining directions. You must create an account in the google console here: <a href="https:////console.cloud.google.com" target="_blank"> https:////console.cloud.google.com < / a> <br> How to get the API Key <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> https: // developers. google.com/maps/documentation/javascript/get-api-key </a> <br> And it must have the following APIs <ul> <li> Places API </li> <li> Directions API </li> < li> Geocoding API </li> <li> Maps Javascript API </li> </ul>]]>
+
+                        </comment>
+                    </field>
+
+                </group>
+
+                <group id="glovo_w4" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Glovo API</label>
+                    <field id="apiKey" sortOrder="10" translate="label comment" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>API Key Glovo</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <comment>Type the Api key provided by Glovo</comment>
+                    </field>
+                    <field id="apiSecret" sortOrder="10" translate="label comment" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Secret Key Glovo</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                         <comment>Type the Api Secret provided by Glovo</comment>
+                    </field>
+                    <field id="horario" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Activate Schedule</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                         <comment>Activate if you want users to be able to schedule their order</comment>
+                    </field>
+
+                    <field id="ambiente" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1"
+                          showInStore="1">
+                       <label>Test Mode</label>
+                       <validate>required-entry</validate>
+                        <depends>
+                            <field id="active">1</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+
+
+                
+
+                
+            </group>
+        </section>
+    </system>
+</config>

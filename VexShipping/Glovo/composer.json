@@ -1,0 +1,9 @@
+{
+    "name": "vexshipping/glovo",
+    "description": "Shipping Method for Magento 2.1",
+    "type": "magento2-module",
+    "version": "dev-master",
+    "license": [
+        "OSL-3.0"
+    ]
+}

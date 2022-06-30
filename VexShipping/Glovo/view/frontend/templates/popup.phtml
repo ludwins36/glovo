@@ -1,0 +1,209 @@
+<style type="text/css">.rowlabel-glovo-first{font-weight: bold;}</style>
+<div id="popup-modal-glovo" style="display: none;">
+    <div id="popup-modal-glovo-mapa" style="height: 450px;">
+
+    </div>
+    <div id="popup-modal-glovo-labels" style="margin-top:20px;">
+
+        <table>
+            <tr class="rowlabel-glovo">
+                <td class="rowlabel-glovo-first">Estado de la orden:</td><td class="rowlabel-glovo-value" id="glovoingorden"></td>
+            </tr>
+            <tr class="rowlabel-glovo rowlabel-glovo-s">
+                <td class="rowlabel-glovo-first">Ubicación actual de la entrega:</td><td class="rowlabel-glovo-value" id="glovoingactual"></td>
+            </tr>
+            <tr class="rowlabel-glovo">
+                <td class="rowlabel-glovo-first">Dirección Destino:</td><td class="rowlabel-glovo-value" id="glovoingdestino"></td>
+            </tr>
+            <tr class="rowlabel-glovo rowlabel-glovo-s">
+                <td class="rowlabel-glovo-first">Tiempo estimado:</td><td class="rowlabel-glovo-value" id="glovoingtiempo"></td>
+            </tr>
+            <tr class="rowlabel-glovo">
+                <td class="rowlabel-glovo-first">Distancia:</td><td class="rowlabel-glovo-value" id="glovoingdistancia"></td>
+            </tr>
+            <tr class="rowlabel-glovo rowlabel-glovo-s">
+                <td class="rowlabel-glovo-first">Persona de contacto:</td><td class="rowlabel-glovo-value" id="glovopersona"></td>
+            </tr>
+            <tr class="rowlabel-glovo">
+                <td class="rowlabel-glovo-first">Telefono:</td><td class="rowlabel-glovo-value" id="glovotelefono"></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    require(
+    [
+        'jquery',
+        'ko',
+        'Magento_Ui/js/modal/modal'
+    ],
+    function(
+        $,
+        ko,
+        modal
+    ) {
+
+        var map = null;
+        var marker1 = null;
+        var route = null;
+
+        var destinolat = null;
+        var destinolng = null;
+
+        var actuallat = null;
+        var actuallng = null;
+
+        var directionDisplay = null;
+        var directionsService;
+
+        var imagen='';
+
+        $(document).ready(function(){
+            var key = "<?= $block->getApiKey() ?>";
+            $.getScript("https://maps.googleapis.com/maps/api/js?v=3&sensor=false&key="+key, function () {     
+                initialize();
+            });
+
+            function initialize(){
+
+                directionsService =new google.maps.DirectionsService();
+                directionsDisplay =new google.maps.DirectionsRenderer();
+
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    size: 'sm',
+                    title: '',
+                    modalClass: 'modalMapa'
+                };
+                var popup = modal(options, $('#popup-modal-glovo'));
+
+                jQuery(".vertrackingglovo").click(function(){
+                        
+                    $.get( window.checkout.baseUrl+"rest/V1/GlovoDelivery",{glovo:$(this).data("glovo")} ,function( data ) {
+                        
+                        imagen = '<?= $this->getViewFileUrl('VexShipping_Glovo::image/scooter.png') ?>';
+                        jQuery("#glovoingorden").html(data[0].datos_orden.state);
+
+                        jQuery("#glovopersona").html(data[0].contacto.courierName);
+                        jQuery("#glovotelefono").html(data[0].contacto.phone);
+
+                        jQuery('#popup-modal-glovo').modal('openModal');
+                        setTimeout(function(){
+
+                            destinolat = parseFloat(data[0].datos_orden.addresses[1].lat);
+                            destinolng = parseFloat(data[0].datos_orden.addresses[1].lon);
+
+                            actuallat = parseFloat(data[0].tracking.lat);
+                            actuallng = parseFloat(data[0].tracking.lon);
+
+                            let uluru1 = {lat: actuallat, lng: actuallng};
+                            let uluru2 = {lat: destinolat, lng: destinolng};
+                            map = new google.maps.Map(document.getElementById('popup-modal-glovo-mapa'), {
+                              zoom: 11,
+                              center: uluru1
+                            });
+                            
+                            actmapa({lat: actuallat,lng:actuallng});
+
+                        },1000);
+                           
+                    },'json');
+                        
+                });
+                
+                function actmapa(coords){
+
+                    actuallat = coords.lat;
+                    actuallng = coords.lng;
+
+                    var request ={
+                        origin:{lat:actuallat,lng:actuallng},
+                        destination:{lat:destinolat,lng:destinolng},
+                        travelMode: google.maps.TravelMode.DRIVING
+                    };
+                    
+                    directionsService.route(request,function(result, status){
+                        
+                        if(status == google.maps.DirectionsStatus.OK){
+
+                            if(directionDisplay!=null){
+                                directionDisplay.setMap(null);
+                            }
+                            if(marker1!=null){
+                                marker1.setMap(null);
+                            }
+                            directionDisplay = new google.maps.DirectionsRenderer({
+                                map: map,
+                                directions: result,
+                                suppressMarkers: true
+                            });
+
+                            
+
+                            var leg = result.routes[0].legs[0];
+                            makeMarker(leg.start_location);
+                            makeMarker2(leg.end_location);
+
+                        }
+                    });
+
+                    calcularkm();
+                }
+                function makeMarker(position) {
+                    let icon = new google.maps.MarkerImage(
+                        imagen,
+                        new google.maps.Size(45, 45),
+                        new google.maps.Point(0, 0),
+                        new google.maps.Point(0, 0)
+                    )
+                    marker1 = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        icon: icon
+                    });
+                }
+                function makeMarker2(position) {
+                    new google.maps.Marker({
+                        position: position,
+                        map: map
+                    });
+                }
+                function calcularkm(){
+                    var service = new google.maps.DistanceMatrixService();
+                    service.getDistanceMatrix(
+                      {
+                        origins: [{lat: actuallat, lng: actuallng}],
+                        destinations: [{lat: destinolat, lng: destinolng}],
+                        travelMode: 'DRIVING',
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        avoidHighways: true,
+                        avoidTolls: true,
+                      }, callback);
+                }
+                function callback(response, status) {
+                    console.log(response)
+                    if(status == 'OK'){
+                        $("#glovoingdestino").html(response.destinationAddresses[0]);
+                        $("#glovoingactual").html(response.originAddresses[0]);
+
+                        if(response.rows[0].elements[0].status=='OK'){
+                            $("#glovoingdistancia").html(response.rows[0].elements[0].distance.text);
+                            $("#glovoingtiempo").html(response.rows[0].elements[0].duration.text);
+                        }else{
+                            $("#glovoingdistancia").html("");
+                            $("#glovoingtiempo").html("");
+                        }
+                    }         
+                }
+            }
+
+        });
+    }
+);
+
+</script>

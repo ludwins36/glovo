@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <glovo>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>VexShipping\Glovo\Model\Carrier\Glovo</model>
+                <name>Envío por Glovo</name>
+                <title>Envío por Glovo</title>
+                
+                <glovo_w5>
+                    <cambiar_estado>0</cambiar_estado>
+                    <estado_pedido>complete</estado_pedido>
+                    <nuevo_estado_pedido>complete</nuevo_estado_pedido>
+                </glovo_w5>
+                
+
+            </glovo>
+        </carriers>
+    </default>
+</config>

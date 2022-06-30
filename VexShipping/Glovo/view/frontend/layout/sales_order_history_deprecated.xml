@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+     <referenceContainer name="sales.order.history.extra.column.header">
+        <block class="Magento\Framework\View\Element\Template" name="sales.order.history.extra.column.header.savarxpress" template="VexShipping_Glovo::order/header.phtml" />
+     </referenceContainer>
+        <referenceBlock name="sales.order.history.extra.container">
+            <block class="Magento\Framework\View\Element\Template" name="sales.order.history.extra.container.savarxpress" template="VexShipping_Glovo::order/content.phtml" />
+        </referenceBlock>
+
+        <referenceContainer name="before.body.end">
+            
+                <block class="VexShipping\Glovo\Block\Scriptgoogle"
+                       name="vexsoluciones.popupglovo"
+                       template="VexShipping_Glovo::popup.phtml"
+                       />
+
+        </referenceContainer>
+
+
+    </body>
+
+
+</page>

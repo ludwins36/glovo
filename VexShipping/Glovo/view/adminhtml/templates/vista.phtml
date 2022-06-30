@@ -1,0 +1,249 @@
+<?php 
+$data = $this->datos();
+?>
+<div class="contenedor-sugerencias" style="">
+
+  <div class="row static-pages">
+    <div class="col-xs-12 col-md-12">
+          <div class="row about-us-video">
+              
+
+            <style type="text/css">
+            h3#title-vende{
+              font-size: 30px;
+              font-family: 'gotham-bold';
+              text-align: center;
+              margin: 22px 0 7px;
+              color: #333;
+
+            }
+        .fieldset>.field>label.label.labelleft{
+          display: inline-block;
+            float: initial;
+            width: 80%!important;
+            padding-left: 12px;
+        }
+        .fieldset>.content-field>.field{
+          width: calc(50% - 20px);
+          display: inline-block;
+          padding-right: 20px;
+          position: relative;
+          vertical-align: text-top;
+          color: #333;
+          margin-bottom: 15px;
+              word-break: break-word;
+        }
+        .fieldset>.content-field>.field .checkbox-field{
+          position: absolute;
+          left: 0px;
+        }
+        .fieldset>.content-field>.field.content-checkbox-field{
+          padding-left: 20px;
+        }
+        .fieldset>.content-field .field:nth-child(2n+0){
+          padding-right: 0px;
+        }
+        .wk-mp-design .fieldset>.legend{
+          margin-bottom: 0px;
+    padding: 12px 20px;
+    color: #0d0d0d;
+    border-bottom: 1px solid #aeaeae;
+    margin-left: 0;
+    width: 100%;
+    font-weight: bold;
+    font-size: 17px;
+    display: block;
+    float: left;
+        }
+        .wk-mp-fieldset{
+          border: 1px solid #aeaeae;
+          padding: 0px;
+          margin-bottom: 15px;
+        }
+        .content-field{
+          padding: 20px;
+          width: 100%;
+          float: left;
+        }
+        label.label{
+              margin-bottom: 5px;
+          display: inline-block;
+          font-weight: bold;
+        }
+      </style>
+
+      
+        <div class="wk-mp-design">
+
+
+          <fieldset class="fieldset info wk-mp-fieldset">
+            <legend class="legend">
+              <span><?php echo __('General information') ?></span>
+            </legend>
+            <div class="content-field">
+              <?php if($data['status']){ ?>
+                <div class="field required">
+                  <label class="label"><?php echo  __('ID Order:') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['id_order'] ?>
+                  </div>
+                </div>
+
+                <div class="field required">
+                  <label class="label"><?php echo  __('ID Increment:') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" data-role="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['increment_order'] ?>
+                  </div>
+                </div>
+
+                <div class="field required">
+                  <label class="label"><?php echo  __('Status Order') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" data-role="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['status_order'] ?>
+                  </div>
+                </div>
+
+                <div class="field required">
+                  <label class="label"><?php echo  __('Status') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" data-role="wk-mp-become-seller-box-wrapper">
+                    <?php 
+                      if($data['datos'][0]['status']==0){
+                        echo __('Cancelled');
+                      }else if($data['datos'][0]['status']==1){
+                        echo __('Not sent');
+                      }else if($data['datos'][0]['status']==2){
+                        echo __('Sent');
+                      }
+                    ?>
+                  </div>
+                </div>
+
+                <div class="field required">
+                  <label class="label"><?php echo  __('Send Date') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" data-role="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['fecha'] ?>
+                  </div>
+                </div>
+
+                <div class="field required" style="width: 100%;">
+                  <label class="label"><?php echo  __('View Log Sent') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" style="padding: 15px;background: #d8d8d8;" data-role="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['glovo_log'] ?>
+                  </div>
+                </div>
+
+                <div class="field required" style="width: 100%;">
+                  <label class="label"><?php echo  __('View Log Cancel') ?></label>
+                  <div class="control shop" id="wk-mp-become-seller-box-wrapper" style="padding: 15px;background: #d8d8d8;" data-role="wk-mp-become-seller-box-wrapper">
+                    <?= $data['datos'][0]['glovo_log_cancel'] ?>
+                  </div>
+                </div>
+
+              <?php }else{
+                  echo __("There is no information");
+              } ?>
+
+            </div>
+          </fieldset>
+
+
+          
+        </div>
+
+          </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- Styles -->
+<style type="text/css">
+.contenedor-sugerencias{
+  padding: 3px 45px 0 45px;
+    max-width: 1000px;
+    margin: auto;
+}
+.row-50{
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+}
+.row-100{
+  float: left;
+  width: 100%;
+}
+.row-input .row-50:first-child{
+  padding-right: 10px;
+}
+.row-input .row-50:nth-child(2){
+  padding-left: 10px;
+}
+.input {
+  width: 100% !important;
+  margin: 8px 0 !important;
+  display: inline-block !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  box-sizing: border-box !important;
+}
+textarea{
+  resize:none;
+}
+.submit {
+  width: 100%;
+  background-color: #FF4000;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.submit:hover {
+  background-color: #FF4000;
+}
+.cpe {
+  margin: 0 auto;
+  width: 700px;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 35px 55px;
+  box-shadow: 0px 0px 19px -1px rgba(0,0,0,0.75);
+  max-width: 90%;
+  margin-bottom: 50px;
+}
+.titulo {
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  color: #7d7d7d;
+  font-weight: 700;
+}
+.contenedor{
+  width: 100%;
+  padding-top: 50px;
+}
+.xcolumn {
+  float: left;
+  width: 50%;    
+}
+.xrow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+req{
+  color: red !important;
+  font-weight: bold;
+}
+
+.file {
+  visibility: hidden;
+  position: absolute;
+}
+--></style>

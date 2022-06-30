@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/GlovoDelivery/" method="GET">
+        <service class="VexShipping\Glovo\Api\ComercioInterface" method="gettracking"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customer_id" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/getDataGlovo/" method="GET">
+        <service class="VexShipping\Glovo\Api\ComercioInterface" method="getdataglovo"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/verificarPosicionGlovo/" method="GET">
+        <service class="VexShipping\Glovo\Api\ComercioInterface" method="verificarPosicion"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/getVerificarHoraGlovo/" method="GET">
+        <service class="VexShipping\Glovo\Api\ComercioInterface" method="getverificarhora"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+</routes>

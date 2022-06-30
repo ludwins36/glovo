@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="VexShipping\Glovo\Api\ComercioInterface"
+                type="VexShipping\Glovo\Model\GlovoApi" />
+                
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="vexshipping_glovo_order_info_shipping_date" type="VexShipping\Glovo\Plugin\Block\Adminhtml\Detalle" sortOrder="51" />
+    </type>
+
+    <type name="Magento\Quote\Model\ShippingAddressManagement">
+        <plugin disabled="false" name="VexShipping_Glovo_Plugin_Magento_Quote_Model_ShippingAddressManagement" sortOrder="10" type="VexShipping\Glovo\Plugin\Magento\Quote\Model\ShippingAddressManagement"/>
+    </type>
+
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save-in-quote-glovo" type="VexShipping\Glovo\Plugin\Magento\Quote\Model\ShippingInformationManagementPlugin" sortOrder="3"/>
+    </type>
+
+
+    <virtualType name="VexShipping\Glovo\Model\ResourceModel\Glovo\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">vexsoluciones_glovo</argument>
+            <argument name="resourceModel" xsi:type="string">VexShipping\Glovo\Model\ResourceModel\Glovo</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="vexshipping_glovo_glovo_data_source" xsi:type="string">VexShipping\Glovo\Model\ResourceModel\Glovo\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    
+</config>

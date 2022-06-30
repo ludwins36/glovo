@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">vexshipping_glovo_glovo.vexshipping_glovo_glovo_data_source</item>
+			<item name="deps" xsi:type="string">vexshipping_glovo_glovo.vexshipping_glovo_glovo_data_source</item>
+		</item>
+		<item name="spinner" xsi:type="string">vexshipping_glovo_glovo_columns</item>
+
+
+	</argument>
+	<dataSource name="vexshipping_glovo_glovo_data_source">
+		<argument name="dataProvider" xsi:type="configurableObject">
+			<argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+			<argument name="name" xsi:type="string">vexshipping_glovo_glovo_data_source</argument>
+			<argument name="primaryFieldName" xsi:type="string">id</argument>
+			<argument name="requestFieldName" xsi:type="string">id</argument>
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="update_url" xsi:type="url" path="mui/index/render"/>
+				</item>
+			</argument>
+		</argument>
+		<argument name="data" xsi:type="array">
+			<item name="js_config" xsi:type="array">
+				<item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+			</item>
+		</argument>
+	</dataSource>
+	<container name="listing_top">
+		<filters name="listing_filters" />
+		<!--<argument name="data" xsi:type="array">
+			<item name="config" xsi:type="array">
+				<item name="template" xsi:type="string">ui/grid/toolbar</item>
+			</item>
+		</argument>-->
+		<paging name="listing_paging">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="storageConfig" xsi:type="array">
+						<item name="provider" xsi:type="string">vexshipping_glovo_glovo.vexshipping_glovo_glovo.listing_top.bookmarks</item>
+						<item name="namespace" xsi:type="string">current.paging</item>
+					</item>
+					<item name="selectProvider" xsi:type="string">vexshipping_glovo_glovo.vexshipping_glovo_glovo.vexshipping_glovo_glovo_columns.ids</item>
+					<item name="displayArea" xsi:type="string">bottom</item>
+					<item name="options" xsi:type="array">
+						<item name="20" xsi:type="array">
+							<item name="value" xsi:type="number">20</item>
+							<item name="label" xsi:type="string" translate="true">20</item>
+						</item>
+						<item name="30" xsi:type="array">
+							<item name="value" xsi:type="number">30</item>
+							<item name="label" xsi:type="string" translate="true">30</item>
+						</item>
+						<item name="50" xsi:type="array">
+							<item name="value" xsi:type="number">50</item>
+							<item name="label" xsi:type="string" translate="true">50</item>
+						</item>
+						<item name="100" xsi:type="array">
+							<item name="value" xsi:type="number">100</item>
+							<item name="label" xsi:type="string" translate="true">100</item>
+						</item>
+						<item name="200" xsi:type="array">
+							<item name="value" xsi:type="number">200</item>
+							<item name="label" xsi:type="string" translate="true">200</item>
+						</item>
+					</item>
+				</item>
+			</argument>
+		</paging>
+
+		<massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+              <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">vexshipping_glovo_glovo.vexshipping_glovo_glovo.vexshipping_glovo_glovo_columns.ids</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                </item>
+            </argument>
+         	
+
+         	<action name="send">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">Send</item>
+                        <item name="label" xsi:type="string" translate="true">Send the order</item>
+                        <item name="url" xsi:type="url" path="vexshipping_glovo/glovo/enviarmassaction"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Send the order</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to send these orders?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+         	<action name="cancel">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">Cancel</item>
+                        <item name="label" xsi:type="string" translate="true">Cancel</item>
+                        <item name="url" xsi:type="url" path="vexshipping_glovo/glovo/cancelarmassaction"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Cancel shipments</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to cancel these shipments?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+
+
+        </massaction>
+
+	</container>
+	<columns name="vexshipping_glovo_glovo_columns">
+		<selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">id</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+		<!--<column name="id">
+			<argument name="data" xsi:type="array">
+				<item name="js_config" xsi:type="array">
+					<item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+				</item>
+				<item name="config" xsi:type="array">
+					<item name="indexField" xsi:type="string">id</item>
+					<item name="filter" xsi:type="string">text</item>
+					<item name="sorting" xsi:type="string">desc</item>
+					<item name="label" xsi:type="string" translate="true">ID</item>
+				</item>
+			</argument>
+		</column>
+		<column name="increment_order">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" xsi:type="string" translate="true">Increment ID</item>
+				</item>
+			</argument>
+		</column>-->
+		<column name="id_order" class="VexShipping\Glovo\Ui\Component\Listing\Column\Order">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+					<item name="dataType" xsi:type="string">text</item>
+					<item name="label" xsi:type="string" translate="true">ID Order</item>
+				</item>
+			</argument>
+		</column>
+		<column name="id_glovo">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" xsi:type="string" translate="true">ID Glovo</item>
+				</item>
+			</argument>
+		</column>
+		<column name="status_order">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" xsi:type="string" translate="true">Status Order</item>
+				</item>
+			</argument>
+		</column>
+		<column name="fecha" class="Magento\Ui\Component\Listing\Columns\Date">
+		    <argument name="data" xsi:type="array">
+		        <item name="config" xsi:type="array">
+		            <item name="filter" xsi:type="string">dateRange</item>
+		            <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+		            <item name="dataType" xsi:type="string">date</item>
+		            <item name="label" xsi:type="string" translate="true">Send date</item>
+		        </item>
+		    </argument>
+		</column>
+		<column name="status">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="filter" xsi:type="string">text</item>
+					<item name="label" xsi:type="string" translate="true">Status</item>
+				</item>
+			</argument>
+		</column>
+
+
+		<column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">VexShipping\Glovo\Model\GlovoStatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="editor" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                </item>
+            </argument>
+        </column>
+
+
+		<actionsColumn name="actions" class="VexShipping\Glovo\Ui\Component\Listing\Column\Adminhtml\Glovo\PostActions">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="resizeEnabled" xsi:type="boolean">false</item>
+					<item name="resizeDefaultWidth" xsi:type="string">10</item>
+					<item name="indexField" xsi:type="string">id</item>
+				</item>
+			</argument>
+		</actionsColumn>
+		
+	</columns>
+</listing>
